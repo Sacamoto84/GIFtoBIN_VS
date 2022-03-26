@@ -30,8 +30,6 @@ namespace GIFtoBIN
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //При открытии#TagName помещаем в коллекцию массив
-
             var ofd = new OpenFileDialog();
             ofd.RestoreDirectory = true;
             ofd.Filter = "gif files (*.gif)|*.gif";
@@ -63,12 +61,6 @@ namespace GIFtoBIN
 
             }
         }
-
-
-
-
-
-
 
         private System.Drawing.Bitmap BitmapFromSource(BitmapSource bitmapsource)
         {
@@ -106,8 +98,6 @@ namespace GIFtoBIN
             File.WriteAllBytes("res.bin", fileout);
 
         }
-
-
 
         byte[] ImageToBytesBit(Image value, int bit)
         {
