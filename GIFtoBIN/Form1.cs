@@ -24,39 +24,44 @@ namespace GIFtoBIN
 
         Bitmap [] bmplist;
 
+        List<byte> output = new List<byte>();
+
+        //string Name = new String();
+
         private void button1_Click(object sender, EventArgs e)
         {
+            //При открытии#TagName помещаем в коллекцию массив
 
-            Stream imageStreamSource = new FileStream("Q1.gif", FileMode.Open, FileAccess.Read, FileShare.Read);
-            GifBitmapDecoder decoder = new GifBitmapDecoder(imageStreamSource, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
+            var ofd = new OpenFileDialog();
+            ofd.RestoreDirectory = true;
+            ofd.Filter = "gif files (*.gif)|*.gif";
 
-            BitmapSource bitmapSource = decoder.Frames[10];
-            
-
-            listBox1.Items.Add("H: "+bitmapSource.Height.ToString());
-            listBox1.Items.Add("W: "+bitmapSource.Width.ToString());
-            pBox.Width  = (int)bitmapSource.Width;
-            pBox.Height = (int)bitmapSource.Height;
-            listBox1.Items.Add("Кадров: "+decoder.Frames.Count.ToString()); 
-
-            Bitmap bmp = new Bitmap(BitmapFromSource(bitmapSource));
-
-            bmplist = new Bitmap[decoder.Frames.Count];
-
-            for(int i=0; i<decoder.Frames.Count;i++)
+            if (ofd.ShowDialog() == DialogResult.OK)
             {
-                lbFrames.Items.Add(i.ToString());
-                bmplist[i] = BitmapFromSource(decoder.Frames[i]);
-            }
 
+                //Name = ofd.FileName;
+               Stream imageStreamSource = new FileStream(ofd.FileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+               GifBitmapDecoder decoder = new GifBitmapDecoder(imageStreamSource, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
 
-
-
+               BitmapSource bitmapSource = decoder.Frames[10];
             
+               listBox1.Items.Add("H: "+bitmapSource.Height.ToString());
+               listBox1.Items.Add("W: "+bitmapSource.Width.ToString());
+               pBox.Width  = (int)bitmapSource.Width;
+               pBox.Height = (int)bitmapSource.Height;
+               listBox1.Items.Add("Кадров: "+decoder.Frames.Count.ToString()); 
 
+               Bitmap bmp = new Bitmap(BitmapFromSource(bitmapSource));
 
+               bmplist = new Bitmap[decoder.Frames.Count];
 
+               for(int i=0; i<decoder.Frames.Count;i++)
+               {
+                 lbFrames.Items.Add(i.ToString());
+                 bmplist[i] = BitmapFromSource(decoder.Frames[i]);
+               }
 
+            }
         }
 
 
@@ -79,20 +84,80 @@ namespace GIFtoBIN
             return bitmap;
         }
 
+        private void lbFrames_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            pBox.Image = bmplist[lbFrames.SelectedIndex];
+        }
 
-        private void pBox_Click(object sender, EventArgs e)
+        private void buttonSaveBIN_Click(object sender, EventArgs e)
+        {
+            if (bmplist == null) return;
+
+            output.Clear();
+
+            foreach (Bitmap bmp in bmplist)
+            {
+                output.AddRange(ImageToBytesBit(bmp , Convert.ToInt32(comboBox1.SelectedItem)));
+            }
+
+            byte[] fileout = output.ToArray();
+            listBox1.Items.Add(fileout.Length.ToString());
+
+            File.WriteAllBytes("res.bin", fileout);
+
+        }
+
+
+
+        byte[] ImageToBytesBit(Image value, int bit)
+        {
+            List<byte> arr = new List<byte>();
+            Bitmap bmp = new Bitmap(value);
+            byte A = 0;
+            byte R = 0;
+            byte G = 0;
+            byte B = 0;
+
+            for (int y = 0; y < bmp.Height; y++)
+            {
+                for (int x = 0; x < bmp.Width; x++)
+                {
+                    Color Pixel = bmp.GetPixel(x, y);
+                    A = Pixel.A; R = Pixel.R; G = Pixel.G; B = Pixel.B;
+
+                    if (bit == 32)
+                    {
+                        arr.Add(A); arr.Add(R); arr.Add(G); arr.Add(B);
+                    }
+
+                    if (bit == 16)
+                    {
+                        arr.AddRange(RGB565(R, G, B));
+                    }
+                }
+            }
+
+            return arr.ToArray();
+        }
+
+        byte[] RGB565(byte R, byte G, byte B)
+        {
+            UInt16 r;
+            r = (UInt16)(((R >> 3) << 11) | ((G >> 2) << 5) | (B >> 3));
+            byte[] ret = { 0, 0 };
+            ret[1] = (byte)(r >> 8);
+            ret[0] = (byte)(r & 0xFF);
+            return ret;
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void lbFrames_SelectedIndexChanged(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
-            
-
-            pBox.Image = bmplist[lbFrames.SelectedIndex];
-
-
-
+            comboBox1.SelectedIndex = 0;
         }
     }
 

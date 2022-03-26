@@ -33,6 +33,8 @@ namespace GIFtoBIN
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.pBox = new System.Windows.Forms.PictureBox();
             this.lbFrames = new System.Windows.Forms.ListBox();
+            this.buttonSaveBIN = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,7 +52,7 @@ namespace GIFtoBIN
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(570, 72);
+            this.listBox1.Location = new System.Drawing.Point(570, 332);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(218, 84);
             this.listBox1.TabIndex = 1;
@@ -64,7 +66,6 @@ namespace GIFtoBIN
             this.pBox.Size = new System.Drawing.Size(400, 400);
             this.pBox.TabIndex = 2;
             this.pBox.TabStop = false;
-            this.pBox.Click += new System.EventHandler(this.pBox_Click);
             // 
             // lbFrames
             // 
@@ -76,17 +77,43 @@ namespace GIFtoBIN
             this.lbFrames.TabIndex = 3;
             this.lbFrames.SelectedIndexChanged += new System.EventHandler(this.lbFrames_SelectedIndexChanged);
             // 
+            // buttonSaveBIN
+            // 
+            this.buttonSaveBIN.Location = new System.Drawing.Point(570, 72);
+            this.buttonSaveBIN.Name = "buttonSaveBIN";
+            this.buttonSaveBIN.Size = new System.Drawing.Size(218, 60);
+            this.buttonSaveBIN.TabIndex = 4;
+            this.buttonSaveBIN.Text = "Сохранить BIN";
+            this.buttonSaveBIN.UseVisualStyleBackColor = true;
+            this.buttonSaveBIN.Click += new System.EventHandler(this.buttonSaveBIN_Click);
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "32",
+            "16"});
+            this.comboBox1.Location = new System.Drawing.Point(570, 138);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(218, 24);
+            this.comboBox1.TabIndex = 5;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.buttonSaveBIN);
             this.Controls.Add(this.lbFrames);
             this.Controls.Add(this.pBox);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.button1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pBox)).EndInit();
             this.ResumeLayout(false);
 
@@ -98,6 +125,8 @@ namespace GIFtoBIN
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.PictureBox pBox;
         private System.Windows.Forms.ListBox lbFrames;
+        private System.Windows.Forms.Button buttonSaveBIN;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
 
