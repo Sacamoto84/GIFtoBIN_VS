@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Interop;
 using System.Drawing.Imaging;
 using System.Windows;
+using System.Diagnostics;
 
 namespace GIFtoBIN
 {
@@ -26,7 +27,9 @@ namespace GIFtoBIN
 
         List<byte> output = new List<byte>();
 
-        //string Name = new String();
+        int H, W;
+
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -42,12 +45,16 @@ namespace GIFtoBIN
                GifBitmapDecoder decoder = new GifBitmapDecoder(imageStreamSource, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
 
                BitmapSource bitmapSource = decoder.Frames[10];
-            
+
+               H = (int)bitmapSource.Height;
+               W = (int)bitmapSource.Width;
+
                listBox1.Items.Add("H: "+bitmapSource.Height.ToString());
                listBox1.Items.Add("W: "+bitmapSource.Width.ToString());
                pBox.Width  = (int)bitmapSource.Width;
                pBox.Height = (int)bitmapSource.Height;
                listBox1.Items.Add("Кадров: "+decoder.Frames.Count.ToString()); 
+
 
                Bitmap bmp = new Bitmap(BitmapFromSource(bitmapSource));
 
@@ -58,6 +65,8 @@ namespace GIFtoBIN
                  lbFrames.Items.Add(i.ToString());
                  bmplist[i] = BitmapFromSource(decoder.Frames[i]);
                }
+
+               pBox.Image = bmplist[0];
 
             }
         }
@@ -96,6 +105,18 @@ namespace GIFtoBIN
             listBox1.Items.Add(fileout.Length.ToString());
 
             File.WriteAllBytes("res.bin", fileout);
+
+            List<string> str = new List<string>();
+            str.Add(H.ToString());
+            str.Add(W.ToString());
+            str.Add(comboBox1.SelectedIndex.ToString());
+            str.Add(bmplist.Length.ToString());
+
+            using (TextWriter tw = new StreamWriter("i.txt"))
+            {
+                foreach (String s in str)
+                    tw.WriteLine(s);
+            }
 
         }
 
@@ -143,6 +164,11 @@ namespace GIFtoBIN
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Process.Start(Application.StartupPath);
         }
 
         private void Form1_Load(object sender, EventArgs e)

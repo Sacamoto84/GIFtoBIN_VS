@@ -35,6 +35,7 @@ namespace GIFtoBIN
             this.lbFrames = new System.Windows.Forms.ListBox();
             this.buttonSaveBIN = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.buttonOpenFolder = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -81,7 +82,7 @@ namespace GIFtoBIN
             // 
             this.buttonSaveBIN.Location = new System.Drawing.Point(570, 72);
             this.buttonSaveBIN.Name = "buttonSaveBIN";
-            this.buttonSaveBIN.Size = new System.Drawing.Size(218, 60);
+            this.buttonSaveBIN.Size = new System.Drawing.Size(218, 54);
             this.buttonSaveBIN.TabIndex = 4;
             this.buttonSaveBIN.Text = "Сохранить BIN";
             this.buttonSaveBIN.UseVisualStyleBackColor = true;
@@ -92,19 +93,30 @@ namespace GIFtoBIN
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
-            "32",
-            "16"});
-            this.comboBox1.Location = new System.Drawing.Point(570, 138);
+            "16",
+            "32"});
+            this.comboBox1.Location = new System.Drawing.Point(570, 132);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(218, 24);
             this.comboBox1.TabIndex = 5;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
+            // buttonOpenFolder
+            // 
+            this.buttonOpenFolder.Location = new System.Drawing.Point(570, 162);
+            this.buttonOpenFolder.Name = "buttonOpenFolder";
+            this.buttonOpenFolder.Size = new System.Drawing.Size(218, 54);
+            this.buttonOpenFolder.TabIndex = 6;
+            this.buttonOpenFolder.Text = "Открыть папку";
+            this.buttonOpenFolder.UseVisualStyleBackColor = true;
+            this.buttonOpenFolder.Click += new System.EventHandler(this.button2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 430);
+            this.Controls.Add(this.buttonOpenFolder);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.buttonSaveBIN);
             this.Controls.Add(this.lbFrames);
@@ -112,7 +124,7 @@ namespace GIFtoBIN
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.button1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "GIFtoBIN V2 27.03.22 ";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pBox)).EndInit();
             this.ResumeLayout(false);
@@ -127,6 +139,7 @@ namespace GIFtoBIN
         private System.Windows.Forms.ListBox lbFrames;
         private System.Windows.Forms.Button buttonSaveBIN;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button buttonOpenFolder;
     }
 }
 
