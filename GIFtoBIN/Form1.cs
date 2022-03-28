@@ -13,6 +13,7 @@ using System.Windows.Interop;
 using System.Drawing.Imaging;
 using System.Windows;
 using System.Diagnostics;
+using Gif.Components;
 
 namespace GIFtoBIN
 {
@@ -31,40 +32,39 @@ namespace GIFtoBIN
 
         private void button1_Click(object sender, EventArgs e)
         {
+
             var ofd = new OpenFileDialog();
             ofd.RestoreDirectory = true;
             ofd.Filter = "gif files (*.gif)|*.gif";
 
+
             if (ofd.ShowDialog() == DialogResult.OK)
             {
+                 
 
-                //Name = ofd.FileName;
-               Stream imageStreamSource = new FileStream(ofd.FileName, FileMode.Open, FileAccess.Read, FileShare.Read);
-               GifBitmapDecoder decoder = new GifBitmapDecoder(imageStreamSource, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
+                GifDecoder gifDecoder = new GifDecoder();
+                gifDecoder.Read( ofd.FileName );
 
-               BitmapSource bitmapSource = decoder.Frames[10];
+                bmplist = new Bitmap[gifDecoder.GetFrameCount()];
 
-               H = (int)bitmapSource.Height;
-               W = (int)bitmapSource.Width;
+                for (int i = 0, count = gifDecoder.GetFrameCount(); i < count; i++)
+                {
+                    Image frame = gifDecoder.GetFrame(i);  // frame i
+                    pBox.Image = frame;
+                    bmplist[i] = (Bitmap)frame;
+                    lbFrames.Items.Add(i.ToString());
+                }
 
-               listBox1.Items.Add("H: "+bitmapSource.Height.ToString());
-               listBox1.Items.Add("W: "+bitmapSource.Width.ToString());
-               pBox.Width  = (int)bitmapSource.Width;
-               pBox.Height = (int)bitmapSource.Height;
-               listBox1.Items.Add("Кадров: "+decoder.Frames.Count.ToString()); 
+                H = (int)bmplist[0].Height;
+                W = (int)bmplist[0].Width;
+         
+                listBox1.Items.Add("H: "+H.ToString());
+                listBox1.Items.Add("W: "+W.ToString());
+                pBox.Width  = (int)W;
+                pBox.Height = (int)H;
+                listBox1.Items.Add("Кадров: "+gifDecoder.GetFrameCount().ToString()); 
 
-
-               Bitmap bmp = new Bitmap(BitmapFromSource(bitmapSource));
-
-               bmplist = new Bitmap[decoder.Frames.Count];
-
-               for(int i=0; i<decoder.Frames.Count;i++)
-               {
-                 lbFrames.Items.Add(i.ToString());
-                 bmplist[i] = BitmapFromSource(decoder.Frames[i]);
-               }
-
-               pBox.Image = bmplist[0];
+                pBox.Image = bmplist[0];
 
             }
         }
@@ -167,6 +167,11 @@ namespace GIFtoBIN
         private void button2_Click(object sender, EventArgs e)
         {
             Process.Start(Application.StartupPath);
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
