@@ -174,6 +174,14 @@ namespace GIFtoBIN
 
         }
 
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            Bitmap bmp = bmplist[lbFrames.SelectedIndex];
+
+            bmp.Save("B.png", ImageFormat.Png);
+
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             comboBox1.SelectedIndex = 0;

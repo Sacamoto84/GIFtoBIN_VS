@@ -36,6 +36,7 @@ namespace GIFtoBIN
             this.buttonSaveBIN = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.buttonOpenFolder = new System.Windows.Forms.Button();
+            this.buttonSaveFrame = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -111,11 +112,22 @@ namespace GIFtoBIN
             this.buttonOpenFolder.UseVisualStyleBackColor = true;
             this.buttonOpenFolder.Click += new System.EventHandler(this.button2_Click);
             // 
+            // buttonSaveFrame
+            // 
+            this.buttonSaveFrame.Location = new System.Drawing.Point(570, 222);
+            this.buttonSaveFrame.Name = "buttonSaveFrame";
+            this.buttonSaveFrame.Size = new System.Drawing.Size(218, 54);
+            this.buttonSaveFrame.TabIndex = 7;
+            this.buttonSaveFrame.Text = "Сохранить кадр B.png";
+            this.buttonSaveFrame.UseVisualStyleBackColor = true;
+            this.buttonSaveFrame.Click += new System.EventHandler(this.button2_Click_1);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 430);
+            this.Controls.Add(this.buttonSaveFrame);
             this.Controls.Add(this.buttonOpenFolder);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.buttonSaveBIN);
@@ -124,7 +136,7 @@ namespace GIFtoBIN
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.button1);
             this.Name = "Form1";
-            this.Text = "GIFtoBIN V2 27.03.22 ";
+            this.Text = "GIFtoBIN V4 31.03.22 ";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pBox)).EndInit();
             this.ResumeLayout(false);
@@ -140,6 +152,7 @@ namespace GIFtoBIN
         private System.Windows.Forms.Button buttonSaveBIN;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button buttonOpenFolder;
+        private System.Windows.Forms.Button buttonSaveFrame;
     }
 }
 
