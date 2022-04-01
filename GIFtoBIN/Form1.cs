@@ -96,7 +96,7 @@ namespace GIFtoBIN
 
             foreach (Bitmap bmp in bmplist)
             {
-                output.AddRange(ImageToBytesBit(bmp , Convert.ToInt32(comboBox1.SelectedItem)));
+                output.AddRange(ImageToBytesBit(bmp , comboBox1.Text));
             }
 
             byte[] fileout = output.ToArray();
@@ -107,7 +107,10 @@ namespace GIFtoBIN
             List<string> str = new List<string>();
             str.Add(H.ToString());
             str.Add(W.ToString());
-            str.Add(comboBox1.Text);
+            if (comboBox1.Text == "32 ARGB")  str.Add("32");
+            if (comboBox1.Text == "24 A565")  str.Add("24");
+            if (comboBox1.Text == "16 565")   str.Add("16");
+
             str.Add(bmplist.Length.ToString());
 
             using (TextWriter tw = new StreamWriter("i.txt"))
@@ -118,7 +121,7 @@ namespace GIFtoBIN
 
         }
 
-        byte[] ImageToBytesBit(Image value, int bit)
+        byte[] ImageToBytesBit(Image value, string bit)
         {
             List<byte> arr = new List<byte>();
             Bitmap bmp = new Bitmap(value);
@@ -134,15 +137,22 @@ namespace GIFtoBIN
                     Color Pixel = bmp.GetPixel(x, y);
                     A = Pixel.A; R = Pixel.R; G = Pixel.G; B = Pixel.B;
 
-                    if (bit == 32)
+                    if (bit == "32 ARGB")
                     {
                         arr.Add(A); arr.Add(R); arr.Add(G); arr.Add(B);
                     }
 
-                    if (bit == 16)
+                    if (bit == "24 A565")
+                    {
+                        arr.Add(A);
+                        arr.AddRange(RGB565(R, G, B));
+                    }
+
+                    if (bit == "16 565")
                     {
                         arr.AddRange(RGB565(R, G, B));
                     }
+
                 }
             }
 

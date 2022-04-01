@@ -94,8 +94,9 @@ namespace GIFtoBIN
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
-            "32",
-            "16"});
+            "32 ARGB",
+            "24 A565",
+            "16 565"});
             this.comboBox1.Location = new System.Drawing.Point(570, 132);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(218, 24);
@@ -136,7 +137,7 @@ namespace GIFtoBIN
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.button1);
             this.Name = "Form1";
-            this.Text = "GIFtoBIN V5 1.04.22 ";
+            this.Text = "GIFtoBIN V6 1.04.22 ";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pBox)).EndInit();
             this.ResumeLayout(false);
