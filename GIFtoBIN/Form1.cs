@@ -107,7 +107,7 @@ namespace GIFtoBIN
             List<string> str = new List<string>();
             str.Add(H.ToString());
             str.Add(W.ToString());
-            str.Add(comboBox1.SelectedIndex.ToString());
+            str.Add(comboBox1.Text);
             str.Add(bmplist.Length.ToString());
 
             using (TextWriter tw = new StreamWriter("i.txt"))
