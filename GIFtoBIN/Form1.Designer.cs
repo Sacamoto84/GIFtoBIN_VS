@@ -137,7 +137,7 @@ namespace GIFtoBIN
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.button1);
             this.Name = "Form1";
-            this.Text = "GIFtoBIN V6 1.04.22 ";
+            this.Text = "GIFtoBIN V7 2023.10.07 ";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pBox)).EndInit();
             this.ResumeLayout(false);
